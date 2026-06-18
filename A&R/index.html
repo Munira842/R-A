@@ -43,7 +43,7 @@ body{
 /* ===== QR ===== */
 #qrContainer{
   width:100px;
-  height:100px;
+  height:200px;
   margin:20px auto;
 }
 
@@ -136,7 +136,7 @@ body{
   <p  id="qrNote" style="display:none;text-align: center;">📌 استخدم رمز الدخول عند الوصول للقاعة</p>
   <p id="invitationCount" style="display:none;text-align: center;"></p>
 
-    <div style="position: absolute;left: 80px;top: 830px;    justify-content:space-between;gap: 10px;" id="countdown">
+    <div style="position: absolute;left: 80px;top: 800px;    justify-content:space-between;gap: 10px;" id="countdown">
     <div  class="time-box">
       <span id="days">00</span>
       <div class="time-label">يوم</div>
@@ -152,6 +152,7 @@ body{
   </div>
             <img style="height: 250px;width: 300px;position: absolute;left:50px ;top: 900px;"  src="44.png" alt="الصورة">
 
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3624.670790718038!2d46.8379383248532!3d24.703841178031734!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e2fa9d80414dc89%3A0x4c6795d330c79745!2z2YLYtdixINiv2YrYqtmK2YTYsiDZhNmE2KXYrdiq2YHYp9mE2KfYqiDZiNin2YTZhdik2KrZhdix2KfYqg!5e0!3m2!1sar!2ssa!4v1781725118528!5m2!1sar!2ssa" width="150" height="70" style="border:0;position: absolute;top: 1250px;align-items: center;left: 100px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>  
 
 
             <img style="height: 300px;width: 400px;position:absolute;left: 1px;z-index: -1;top: 930px;"  src="33.png" alt="الصورة">
@@ -161,11 +162,6 @@ body{
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
 <script>
- const nameParam = new URLSearchParams(location.search).get("name") || "ضيفنا";
-  const welcomeText = document.getElementById("welcomeText");
-  if (welcomeText) {
-    welcomeText.innerText += nameParam;
-  }
 
   const token = new URLSearchParams(location.search).get("token") || "";
   const qrContainer = document.getElementById("qrContainer");
@@ -181,8 +177,28 @@ body{
   const messageStatus = document.getElementById("messageStatus");
 
   // URL for the Google Apps Script
-  const scriptURL = "https://script.google.com/macros/s/AKfycbzUmsecyIk1nvYAG1658G52L-JUJHWyaLvS7J_mVa_laXxh1haOPnyAmbbfcQHajMLluQ/exec";
+  const scriptURL = "https://script.google.com/macros/s/AKfycbzCQBunXwx5bDqEhB-HoHwJ6RefnE-W8xXiPq8WnCRFtmYxdtVq76qY64Qc0aH9uqYUQQ/exec";
+window.onload = function () {
+  if (!token) return;
 
+  fetch(`${scriptURL}?token=${token}`)
+    .then(res => res.json())
+    .then(res => {
+
+      document.getElementById("welcomeText").innerText =
+        "حيّاك الله، " + (res.name || "ضيفنا");
+
+      if (res.status === "already") {
+        responseButtons.style.display = "none";
+        attendanceTitle.style.display = "none";
+        responseMsg.innerText = res.message;
+
+        if (res.qr) {
+          showQR(res.qr, res.max);
+        }
+      }
+    });
+};
 
 window.onload = function () {
   if (!token) return;
@@ -234,7 +250,7 @@ window.onload = function () {
 }
   function showQR(link, count) {
     qrContainer.innerHTML = "";
-    new QRCode(qrContainer, { text: link, width: 100, height: 100  });
+    new QRCode(qrContainer, { text: link, width: 50, height: 50  });
     qrNote.style.display = "block";
     invitationCount.style.display = "block";
     invitationCount.innerText = `📩 عدد الدعوات: ${count}`;
