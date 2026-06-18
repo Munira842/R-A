@@ -23,7 +23,6 @@ body{
     justify-content:center;
     align-items:center;
     color: #432e1d;
-
 }
 #responseButtons button {
   width:45%;
@@ -137,7 +136,7 @@ body{
   <p  id="qrNote" style="display:none;text-align: center;">📌 استخدم رمز الدخول عند الوصول للقاعة</p>
   <p id="invitationCount" style="display:none;text-align: center;"></p>
 
-    <div style="position: absolute;left: 80px;top: 840px;    justify-content:space-between;gap: 10px;" id="countdown">
+    <div style="position: absolute;left: 80px;top: 800px;    justify-content:space-between;gap: 10px;" id="countdown">
     <div  class="time-box">
       <span id="days">00</span>
       <div class="time-label">يوم</div>
@@ -179,37 +178,21 @@ body{
 
   // URL for the Google Apps Script
   const scriptURL = "https://script.google.com/macros/s/AKfycbzCQBunXwx5bDqEhB-HoHwJ6RefnE-W8xXiPq8WnCRFtmYxdtVq76qY64Qc0aH9uqYUQQ/exec";
-window.onload = function () {
-  if (!token) return;
+window.onload = function() {
+  loadGuestName();
+  loadAttendanceStatus();
+};
 
+function loadGuestName() {
   fetch(`${scriptURL}?token=${token}`)
     .then(res => res.json())
     .then(res => {
-
       document.getElementById("welcomeText").innerText =
         "حيّاك الله، " + (res.name || "ضيفنا");
+    });
+}
 
-      if (res.status === "already") {
-        responseButtons.style.display = "none";
-        attendanceTitle.style.display = "none";
-        responseMsg.innerText = res.message;
-
-        if (res.qr) {
-          showQR(res.qr, res.max);
-        }
-      }
-
-      if (res.status === "declined") {
-        responseButtons.style.display = "none";
-        attendanceTitle.style.display = "none";
-        responseMsg.innerText = res.message;
-      }
-    })
-    .catch(err => console.log(err));
-};
-window.onload = function () {
-  if (!token) return;
-
+function loadAttendanceStatus() {
   fetch(`${scriptURL}?token=${token}`)
     .then(res => res.json())
     .then(res => {
@@ -229,10 +212,8 @@ window.onload = function () {
         attendanceTitle.style.display = "none";
         responseMsg.innerText = res.message;
       }
-
-    })
-    .catch(err => console.log(err));
-};
+    });
+}
 
 
   function confirmAttendance(response) {
