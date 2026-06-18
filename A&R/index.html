@@ -127,11 +127,7 @@ body{
 }
 
 /* شاشة الانترو */
-body{
-    margin:0;
-    height:100vh;
-    overflow:hidden;
-}
+
 
 /* الانترو */
 #intro{
@@ -140,6 +136,8 @@ body{
     height:100%;
     top:0;
     left:0;
+    z-index:9999;
+
 }
 
 /* النصين */
@@ -150,7 +148,15 @@ body{
     height:100%;
     transition:all 1.5s ease;
 }
+    
+#intro.opening{
+    pointer-events:none;
+}
 
+/* بعد الاختفاء */
+#intro.hide{
+    display:none;
+}
 /* الصورة اليسار */
 .left{
     left:0;
@@ -371,13 +377,15 @@ btn.onclick = function(){
 
     // فتح من النص
     intro.classList.add("open");
+    intro.classList.add("opening"); // يمنع اللمس
 
     // إخفاء الزر
     btn.style.display = "none";
 
     // إزالة الانترو بالكامل بعد الانفتاح
-    setTimeout(()=>{
-        intro.style.display = "none";
+  setTimeout(()=>{
+        intro.classList.add("hide"); // اختفاء كامل
+        intro.classList.remove("opening");
     }, 1600);
 };
 </script>
