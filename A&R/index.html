@@ -41,10 +41,10 @@ body{
 }
 
 /* ===== QR ===== */
-#qrContainer {
-  height: 30px;
-  width: 30px;
-  align-items: center;
+#qrContainer{
+  width:200px;
+  height:200px;
+  margin:20px auto;
 }
 
 .container{
@@ -185,6 +185,27 @@ body{
   const scriptURL = "https://script.google.com/macros/s/AKfycbzUmsecyIk1nvYAG1658G52L-JUJHWyaLvS7J_mVa_laXxh1haOPnyAmbbfcQHajMLluQ/exec";
 
 
+window.onload = function () {
+  if (!token) return;
+
+  fetch(`${scriptURL}?token=${token}&check=1`)
+    .then(res => res.json())
+    .then(res => {
+
+      if (res.response) {
+        responseButtons.style.display = "none";
+        attendanceTitle.style.display = "none";
+
+        if (res.qr) {
+          showQR(res.qr, res.max);
+        }
+      }
+
+    });
+};
+
+
+
   function confirmAttendance(response) {
   responseMsg.innerText = "⏳ جاري التسجيل...";
 
@@ -207,7 +228,7 @@ body{
 }
   function showQR(link, count) {
     qrContainer.innerHTML = "";
-    new QRCode(qrContainer, { text: link, width: 200, height: 200  });
+    new QRCode(qrContainer, { text: link, width: 50, height: 50  });
     qrNote.style.display = "block";
     invitationCount.style.display = "block";
     invitationCount.innerText = `📩 عدد الدعوات: ${count}`;
