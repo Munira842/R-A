@@ -185,8 +185,10 @@ window.onload = function () {
     .then(res => res.json())
     .then(res => {
 
+      console.log(res); // للتأكد
+
       document.getElementById("welcomeText").innerText =
-        "حيّاك الله، " + (res.name || "ضيفنا");
+        "حيّاك الله، " + res.name;
 
       if (res.status === "already") {
         responseButtons.style.display = "none";
@@ -199,7 +201,6 @@ window.onload = function () {
       }
     });
 };
-
 window.onload = function () {
   if (!token) return;
 
