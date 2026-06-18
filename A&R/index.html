@@ -109,14 +109,105 @@ body{
   font-size: 10px;
 }
 
+#startBtn{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    background:none;
+    border:none;
+    cursor:pointer;
+}
+
+#startBtn img{
+    width:120px;
+    height:120px;
+    border-radius:50%;
+    box-shadow:0 0 20px rgba(255,255,255,0.4);
+}
+
+/* شاشة الانترو */
+body{
+    margin:0;
+    height:100vh;
+    overflow:hidden;
+}
+
+/* الانترو */
+#intro{
+    position:fixed;
+    width:100%;
+    height:100%;
+    top:0;
+    left:0;
+}
+
+/* النصين */
+.half{
+    position:absolute;
+    top:0;
+    width:50%;
+    height:100%;
+    transition:all 1.5s ease;
+}
+
+/* الصورة اليسار */
+.left{
+    left:0;
+    background:url("666.png") center/cover no-repeat;
+}
+
+/* الصورة اليمين */
+.right{
+    right:0;
+    background:url("6666.png") center/cover no-repeat;
+}
+
+/* الفتح من النص */
+.open .left{
+    transform:translateX(-100%);
+}
+
+.open .right{
+    transform:translateX(100%);
+}
+
+/* زر البداية */
+#startBtn{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    z-index:10;
+    background:none;
+    border:none;
+    cursor:pointer;
+}
+
+#startBtn img{
+    width:300px;
+    height:300px;
+}
+
+
+
+
 </style>
 </head>
 
 <body>
 
 <div class="container">
+<audio id="openSound" src="open.mp3" preload="auto"></audio>
 
+<div id="intro">
+    <div class="half left"></div>
+    <div class="half right"></div>
+</div>
 
+<button id="startBtn">
+    <img src="55.png" alt="start">
+</button>
     <div class="image-box">
         <img src="11.png" alt="الصورة الأولى">
 
@@ -152,6 +243,7 @@ body{
   </div>
             <img style="height: 250px;width: 300px;position: absolute;left:50px ;top: 900px;"  src="44.png" alt="الصورة">
 
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3624.670790718038!2d46.8379383248532!3d24.703841178031734!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e2fa9d80414dc89%3A0x4c6795d330c79745!2z2YLYtdixINiv2YrYqtmK2YTYsiDZhNmE2KXYrdiq2YHYp9mE2KfYqiDZiNin2YTZhdik2KrZhdix2KfYqg!5e0!3m2!1sar!2ssa!4v1781725118528!5m2!1sar!2ssa" width="150" height="70" style="border:0;position: absolute;top: 1250px;align-items: center;left: 100px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>  
 
 
             <img style="height: 300px;width: 400px;position:absolute;left: 1px;z-index: -1;top: 930px;"  src="33.png" alt="الصورة">
@@ -266,7 +358,30 @@ var countDownDate = new Date("jul 26, 2026 20:00:00").getTime();
   }, 1000);
 
 
-  
+const btn = document.getElementById("startBtn");
+const intro = document.getElementById("intro");
+const sound = document.getElementById("openSound");
+
+btn.onclick = function(){
+
+    // صوت الفتح
+    sound.currentTime = 0;
+    sound.play();
+
+    // فتح من النص
+    intro.classList.add("open");
+
+    // إخفاء الزر
+    btn.style.display = "none";
+
+    // إزالة الانترو بالكامل بعد الانفتاح
+    setTimeout(()=>{
+        intro.style.display = "none";
+    }, 1600);
+};
+</script>
+</script>
+</script>
 
 </script>
 
