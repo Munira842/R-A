@@ -188,22 +188,29 @@ body{
 window.onload = function () {
   if (!token) return;
 
-  fetch(`${scriptURL}?token=${token}&check=1`)
+  fetch(`${scriptURL}?token=${token}`)
     .then(res => res.json())
     .then(res => {
 
-      if (res.response) {
+      if (res.status === "already") {
         responseButtons.style.display = "none";
         attendanceTitle.style.display = "none";
+        responseMsg.innerText = res.message;
 
         if (res.qr) {
           showQR(res.qr, res.max);
         }
       }
 
-    });
-};
+      if (res.status === "declined") {
+        responseButtons.style.display = "none";
+        attendanceTitle.style.display = "none";
+        responseMsg.innerText = res.message;
+      }
 
+    })
+    .catch(err => console.log(err));
+};
 
 
   function confirmAttendance(response) {
