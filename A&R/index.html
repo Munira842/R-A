@@ -42,8 +42,8 @@ body{
 
 /* ===== QR ===== */
 #qrContainer{
-  width:200px;
-  height:200px;
+  width:100px;
+  height:100px;
   margin:20px auto;
 }
 
@@ -235,7 +235,7 @@ window.onload = function () {
 }
   function showQR(link, count) {
     qrContainer.innerHTML = "";
-    new QRCode(qrContainer, { text: link, width: 50, height: 50  });
+    new QRCode(qrContainer, { text: link, width: 100, height: 100  });
     qrNote.style.display = "block";
     invitationCount.style.display = "block";
     invitationCount.innerText = `📩 عدد الدعوات: ${count}`;
