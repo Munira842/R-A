@@ -70,7 +70,7 @@ body{
     width:100%;
     border-radius:30px;
     display:block;
-    box-shadow:0cap 15px 20px rgb(0, 0, 0);
+    box-shadow:0cap 15px 20px rgb(255, 235, 213);
     transition:0.3s;
       margin: 50px 0;
 
@@ -139,9 +139,18 @@ body{
 
   <div style="align-items: center;" id="qrContainer"></div>
   <p  id="qrNote" style="display:none;text-align: center;">📌 استخدم رمز الدخول عند الوصول للقاعة</p>
-  <p id="invitationCount" style="display:none;text-align: center;"></p>
-
-    <div style="position: absolute;left: 80px;top: 900px;    justify-content:space-between;gap: 10px;" id="countdown">
+  <p id="invitationCount" ></p>
+              <p style=" font-size: 20px;  margin-top: 40px; animation: bounce 2s infinite; ">
+      ↓ تفاصيل المناسبة↓
+    </p>
+   
+    <style>
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(5px); }
+    }
+    </style>
+    <div style="position: absolute;left: 80px;top: 930px;    justify-content:space-between;gap: 10px;" id="countdown">
     <div  class="time-box">
       <span id="days">00</span>
       <div class="time-label">يوم</div>
