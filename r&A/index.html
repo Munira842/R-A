@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>دعوة</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family: 'Tahoma', sans-serif;
+    min-height:100vh;
+    
+
+    /* الخلفية */
+    background:url('22222.jpg') center center/cover no-repeat fixed;
+    font-size: 10px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+}
+#responseButtons button {
+  width: 40%;
+  font-size: 20px;
+  padding: 10px;
+  margin: 40px 0;
+  margin-bottom: -50px;
+  border-radius: 30px;
+  background: #432e1d;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+/* ===== QR ===== */
+#qrContainer {
+  height: 100px;
+  width: 100px;
+  align-items: center;
+}
+
+.container{
+    width:100%;
+    max-width:4000px;
+    border-radius:25px;
+    padding:20px;
+    text-align:center;
+}
+
+.title{
+    color:white;
+    font-size:28px;
+    margin-bottom:20px;
+}
+
+.image-box{
+    margin-bottom:20px;
+}
+
+.image-box img{
+    width:100%;
+    border-radius:30px;
+    display:block;
+    box-shadow:0cap 15px 20px rgb(0, 0, 0);
+    transition:0.3s;
+      margin: 50px 0;
+
+}
+
+
+.text{
+    color:white;
+    margin-top:10px;
+    font-size:16px;
+}
+#countdown {
+  
+  display: flex;
+  justify-content:space-evenly;
+  margin: 5px 0;
+  text-align: center;
+
+}
+
+.time-box {
+  background: #5a3f2a;
+  color: white;
+  border-radius: 15px;
+  padding: 20px;
+}
+
+.time-box span {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.time-label {
+  font-size: 10px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+
+    <div class="image-box">
+        <img src="11.png" alt="الصورة الأولى">
+
+    </div>
+    
+
+  <h1 style="color:#432e1d;" id="welcomeText">حيّاك الله،</h1>
+
+  <h2 style="color:#432e1d;" id="attendanceTitle">الرجاء تأكيد حضورك</h2>
+  <div id="responseButtons">
+       <button  onclick="confirmAttendance('yes')">نعم، بإذن الله</button>
+      <button  onclick="confirmAttendance('no')">لا، أعتذر</button>
+    </div>
+
+  <p style="text-align: center;" id="responseMsg"></p>
+
+  <div style="align-items: center;" id="qrContainer"></div>
+  <p  id="qrNote" style="display:none;text-align: center;">📌 استخدم رمز الدخول عند الوصول للقاعة</p>
+  <p id="invitationCount" style="display:none;text-align: center;"></p>
+
+    <div style="position: absolute;left: 80px;top: 800px;    justify-content:space-between;gap: 10px;" id="countdown">
+    <div  class="time-box">
+      <span id="days">00</span>
+      <div class="time-label">يوم</div>
+    </div>
+    <div class="time-box">
+      <span id="hours">00</span>
+      <div class="time-label">ساعة</div>
+    </div>
+    <div class="time-box">
+      <span id="minutes">00</span>
+      <div class="time-label">دقيقة</div>
+    </div>
+  </div>
+            <img style="height: 250px;width: 300px;position: absolute;left:50px ;top: 900px;"  src="44.png" alt="الصورة">
+
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3624.670790718038!2d46.8379383248532!3d24.703841178031734!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e2fa9d80414dc89%3A0x4c6795d330c79745!2z2YLYtdixINiv2YrYqtmK2YTYsiDZhNmE2KXYrdiq2YHYp9mE2KfYqiDZiNin2YTZhdik2KrZhdix2KfYqg!5e0!3m2!1sar!2ssa!4v1781725118528!5m2!1sar!2ssa" width="150" height="70" style="border:0;position: absolute;top: 1250px;align-items: center;left: 100px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>  
+
+
+            <img style="height: 300px;width: 400px;position:absolute;left: 1px;z-index: -1;top: 930px;"  src="33.png" alt="الصورة">
+
+
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+<script>
+ const nameParam = new URLSearchParams(location.search).get("name") || "ضيفنا";
+  const welcomeText = document.getElementById("welcomeText");
+  if (welcomeText) {
+    welcomeText.innerText += nameParam;
+  }
+
+  const token = new URLSearchParams(location.search).get("token") || "";
+  const qrContainer = document.getElementById("qrContainer");
+  const responseButtons = document.getElementById("responseButtons");
+  const attendanceTitle = document.getElementById("attendanceTitle");
+  const responseMsg = document.getElementById("responseMsg");
+  const qrNote = document.getElementById("qrNote");
+  const invitationCount = document.getElementById("invitationCount");
+ 
+  // Elements for the message box
+  const messageTextarea = document.getElementById("message");
+  const sendMessageBtn = document.getElementById("sendMessageBtn");
+  const messageStatus = document.getElementById("messageStatus");
+
+  // URL for the Google Apps Script
+  const scriptURL = "https://script.google.com/macros/s/AKfycbzUmsecyIk1nvYAG1658G52L-JUJHWyaLvS7J_mVa_laXxh1haOPnyAmbbfcQHajMLluQ/exec";
+
+
+  function confirmAttendance(response) {
+  responseMsg.innerText = "⏳ جاري التسجيل...";
+
+  fetch(`${scriptURL}?token=${token}&response=${response}`)
+    .then(res => res.json())
+    .then(res => {
+      responseButtons.style.display = "none";
+      attendanceTitle.style.display = "none";
+      responseMsg.innerText = res.message;
+
+      if (res.status === "success" || res.status === "already") {
+        showQR(res.qr, res.max);
+      } else if (res.status === "declined") {
+        qrContainer.innerHTML = "";
+      }
+    })
+    .catch(() => {
+      responseMsg.innerText = "❌ خطأ في الاتصال";
+    });
+}
+  function showQR(link, count) {
+    qrContainer.innerHTML = "";
+    new QRCode(qrContainer, { text: link, width: 200, height: 200  });
+    qrNote.style.display = "block";
+    invitationCount.style.display = "block";
+    invitationCount.innerText = `📩 عدد الدعوات: ${count}`;
+
+     const thankYouImage = document.getElementById("thankYouImage");
+  if (thankYouImage) {
+    thankYouImage.style.display = "block";
+  }
+}
+
+ 
+var countDownDate = new Date("jul 26, 2026 20:00:00").getTime();
+  var x = setInterval(function() {
+    var now = new Date().getTime();
+    var distance = countDownDate - now;
+    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    document.getElementById("days").innerHTML = days;
+    document.getElementById("hours").innerHTML = hours;
+    document.getElementById("minutes").innerHTML = minutes;
+    if (distance < 0) {
+      clearInterval(x);
+      document.getElementById("countdown").innerHTML = "انتهى الوقت";
+    }
+  }, 1000);
+
+
+  
+
+</script>
+
+</body>
+</html>
