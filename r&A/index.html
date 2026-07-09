@@ -12,17 +12,18 @@
 }
 
 body{
-    font-family: 'Amiri', sans-serif;
-    min-height:100vh;
+
+    font-family: 'Aref Ruqaa', serif;
+  min-height:100vh;
     
 
     /* الخلفية */
-    background:url('777.jpg') center center/cover no-repeat fixed;
+    background:url('333.jpg') center center/cover no-repeat fixed;
     font-size: 10px;
     display:flex;
     justify-content:center;
     align-items:center;
-    color: #f2ede9;
+    color: #af4155;
 }
 #responseButtons button {
   width:45%;
@@ -31,12 +32,13 @@ body{
   margin: 30px 0;
   margin-bottom: -50px;
   border-radius: 30px;
-  background: #d8b7a3;
+  background: #af4155;;
   color: #f6f5f3;
   border: none;
   cursor: pointer;
-  gap: 50px;
-  margin-top: 20px;
+  gap: 100px;
+  margin-top: 40px;  
+
 
 
 }
@@ -70,7 +72,7 @@ body{
     width:100%;
     border-radius:30px;
     display:block;
-    box-shadow:0cap 15px 20px rgb(21, 20, 20);
+    box-shadow:0cap 15px 20px rgb(91, 89, 89);
     transition:0.3s;
       margin: 50px 0;
 
@@ -83,19 +85,16 @@ body{
     font-size:16px;
 }
 #countdown {
-  
   display: flex;
-  justify-content:space-evenly;
-  margin: -70px 0;
+  justify-content: space-evenly;
+  margin: 30px 0;
   text-align: center;
-    border: none;
-
-
 }
 
 .time-box {
-  background:#d8b7a3;
+  background:#af4155;
   color: #f2ede9;
+      box-shadow:0cap 1px 20px rgb(185, 174, 174);
   border-radius: 15px;
   padding: 20px;
 }
@@ -122,7 +121,7 @@ body{
 
 <div class="container">
       <div class="image-box">
-        <img  src="111.png" alt="الصورة الأولى">
+        <img  src="11.jpg" alt="الصورة الأولى">
 
     </div>
     
@@ -139,10 +138,7 @@ body{
 
   <div style="align-items: center;" id="qrContainer"></div>
   <p  id="qrNote" style="display:none;text-align: center;">📌 استخدم رمز الدخول عند الوصول للقاعة</p>
-  <p id="invitationCount" ></p>
-              <p style=" font-size: 20px;  margin-top: 3px; animation: bounce 2s infinite; ">
-      ↓ تفاصيل المناسبة↓
-    </p>
+  
    
     <style>
     @keyframes bounce {
@@ -150,7 +146,7 @@ body{
       50% { transform: translateY(5px); }
     }
     </style>
-    <div style="position: absolute;left: 90px;top: 1250px;    justify-content:space-between;gap: 10px;" id="countdown">
+    <div style=" gap: 11px;justify-self:center;" id="countdown">
     <div  class="time-box">
       <span id="days">00</span>
       <div class="time-label">يوم</div>
@@ -164,12 +160,10 @@ body{
       <div class="time-label">دقيقة</div>
     </div>
   </div>
-            <img style="height: 300px;width: 300px;position: absolute;left:50px ;top: 940px;"  src="33.png" alt="الصورة">
 
 
-            <img style="height: 300px;width: 400px;position:absolute;left: 1px;z-index: -1;top: 1150px;"  src="999.png" alt="الصورة">
 
-<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3624.670790718035!2d46.83793832484115!3d24.70384117803184!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e2fa9d80414dc89%3A0x4c6795d330c79745!2z2YLYtdixINiv2YrYqtmK2YTYsiDZhNmE2KXYrdiq2YHYp9mE2KfYqiDZiNin2YTZhdik2KrZhdix2KfYqg!5e0!3m2!1sar!2ssa!4v1783114647110!5m2!1sar!2ssa" width="150" height="50" style="border:0;position: absolute;top: 1400px;left: 10px;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3624.670790718035!2d46.83793832484115!3d24.70384117803184!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e2fa9d80414dc89%3A0x4c6795d330c79745!2z2YLYtdixINiv2YrYqtmK2YTYsiDZhNmE2KXYrdiq2YHYp9mE2KfYqiDZiNin2YTZhdik2KrZhdix2KfYqg!5e0!3m2!1sar!2ssa!4v1783114647110!5m2!1sar!2ssa" width="200" height="150" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
